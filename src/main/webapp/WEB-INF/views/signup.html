@@ -1,0 +1,49 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<div th:replace="include :: head"></div>
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div th:replace="include :: alert"></div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <form th:action="@{/user/signup}" th:object="${user}" method="post" class="form-horizontal">
+                <h2 class="form-signin-heading">Sign up</h2>
+                <div th:class="${#fields.hasErrors('username')} ? 'form-group has-error' : 'form-group'">
+                    <input th:field="*{username}" autofocus="autofocus" name="username" type="text" id="inputUsername" class="form-control has-error" placeholder="Username" />
+                    <span class="help-block" th:errors="*{username}">Please enter valid username</span>
+                </div>
+                <div th:class="${#fields.hasErrors('displayname')} ? 'form-group has-error' : 'form-group'">
+                    <input th:field="*{displayname}" name="displayname" type="text" id="inputDisplayname" class="form-control" placeholder="Display name" />
+                    <span class="help-block" th:errors="*{displayname}">Please enter valid display name</span>
+                </div>
+                <div th:class="${#fields.hasErrors('email')} ? 'form-group has-error' : 'form-group'">
+                    <input th:field="*{email}" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email" />
+                    <span class="help-block" th:errors="*{email}">Please enter valid email</span>
+                </div>
+                <div th:class="${#fields.hasErrors('password')} ? 'form-group has-error' : 'form-group'">
+                    <input name="password" type="password" id="inputpassword" class="form-control" placeholder="Password" />
+                    <span class="help-block" th:errors="*{password}">Please enter valid password</span>
+                </div>
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+                <div class="center">Already registered? <a th:href="@{/login}">Log in</a></div>
+            </form>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+
+</div>
+</body>
+
+</html>

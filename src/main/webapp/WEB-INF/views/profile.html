@@ -1,0 +1,67 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
+<div th:replace="include :: head"></div>
+<body>
+<div th:replace="include :: navbar ('')"></div>
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="page-header">
+            <h3>Profile</h3>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <div th:replace="include :: profile"></div>
+    </div>
+    <div class="col-md-6">
+        <div th:replace="include :: posts"></div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4>Follows:</h4>
+                <div class="media" th:each="followed : ${profileUser.subscriptionList}">
+                    <div class="media-left">
+                        <a th:href="@{|/user/show/${followed.username}|}">
+                            <img class="media-object" th:src="@{/avatar/64x64.png}" alt="userpic" />
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <b th:text="${followed.displayname}">Display Name</b>
+                            <div th:text="${followed.username}">username</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4>Followers:</h4>
+                <div class="media" th:each="follower : ${followersList}">
+                    <div class="media-left">
+                        <a th:href="@{|/user/show/${follower.username}|}">
+                            <img class="media-object" th:src="@{/avatar/64x64.png}" alt="userpic" />
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-heading">
+                            <b th:text="${follower.displayname}">Display Name</b>
+                            <div th:text="${follower.username}">username</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
