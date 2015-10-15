@@ -1,5 +1,6 @@
 package me.molchanoff.microblog.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -28,11 +29,13 @@ public class RootConfig {
     @Bean
     @Profile("production")
     public DataSource dataSourceProd() {
-        DriverManagerDataSource ds = new DriverManagerDataSource();
+        BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
         ds.setUrl("jdbc:postgresql://localhost:5432/microblog");
         ds.setUsername("microblog");
         ds.setPassword("microblog");
+        ds.setInitialSize(5);
+        ds.setMaxTotal(10);
         return ds;
     }
 
