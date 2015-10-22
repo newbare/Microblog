@@ -34,5 +34,5 @@ In order to deploy this app, you have to refer corresponding documentation of yo
 * production - uses PostgreSQL database
 * test - uses embedded H2 database with test data `testdata.sql` script (for unit tests)
 
-One option to activate a profile is to specify one using `spring.profiles.active` environment variable.
+The active profile is specified in `spring.profiles.active` property in `config.properties`.
 If no environment variable was specified, `default` profile is used.

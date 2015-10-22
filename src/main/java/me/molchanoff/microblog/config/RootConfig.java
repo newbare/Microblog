@@ -1,9 +1,10 @@
 package me.molchanoff.microblog.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -24,16 +25,20 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"me.molchanoff.microblog"}, excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class)})
 @EnableJpaRepositories(basePackages = "me.molchanoff.microblog.repositories")
 @EnableTransactionManagement
+@PropertySource("classpath:config.properties")
 public class RootConfig {
+
+    @Autowired
+    private Environment env;
 
     @Bean
     @Profile("production")
     public DataSource dataSourceProd() {
         BasicDataSource ds = new BasicDataSource();
         ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5432/microblog");
-        ds.setUsername("microblog");
-        ds.setPassword("microblog");
+        ds.setUrl(env.getProperty("db.url"));
+        ds.setUsername(env.getProperty("db.username"));
+        ds.setPassword(env.getProperty("db.password"));
         ds.setInitialSize(5);
         ds.setMaxTotal(10);
         return ds;
