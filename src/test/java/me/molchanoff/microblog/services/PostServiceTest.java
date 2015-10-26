@@ -85,7 +85,7 @@ public class PostServiceTest {
     @Test
     public void testFindByUsername() throws Exception {
         List<Post> expectedPostList = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) expectedPostList.add(postService.findPost(i));
+        for (int i = 3; i >= 1; i--) expectedPostList.add(postService.findPost(i));
         List<Post> actualPostList = postService.findByUsername("test1");
         assertEquals(expectedPostList, actualPostList);
     }

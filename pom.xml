@@ -4,7 +4,7 @@
     <groupId>com.springapp</groupId>
     <artifactId>Microblog</artifactId>
     <packaging>war</packaging>
-    <version>0.1</version>
+    <version>1.0.0</version>
     <name>Microblog</name>
 
     <properties>
