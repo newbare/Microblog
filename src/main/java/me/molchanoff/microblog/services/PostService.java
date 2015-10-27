@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -33,7 +34,9 @@ public class PostService {
      * @see Post
      */
     public List<Post> findAll() {
-        return postRepository.findAll(new Sort(Sort.Direction.DESC, "timeStamp"));
+        List<Post> postList = postRepository.findAll();
+        postList.sort(Comparator.<Post>reverseOrder());
+        return postList;
     }
 
     /**
@@ -44,7 +47,9 @@ public class PostService {
     public List<Post> findFollowing(String followerUsername) {
         User follower = userRepository.findByUsername(followerUsername);
         if (!follower.getSubscriptionList().isEmpty()) {
-            return postRepository.find(follower.getSubscriptionList());
+            List<Post> postList = postRepository.find(follower.getSubscriptionList());
+            postList.sort(Comparator.<Post>reverseOrder());
+            return postList;
         }
         else return null;
     }
@@ -74,7 +79,7 @@ public class PostService {
      */
     public List<Post> findByUsername(String username) {
         User user = userRepository.findByUsername(username);
-        user.getPostList().size();
+        user.getPostList().sort(Comparator.<Post>reverseOrder());
         return user.getPostList();
     }
 

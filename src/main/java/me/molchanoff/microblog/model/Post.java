@@ -14,7 +14,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "POSTS")
-public class Post implements Serializable {
+public class Post implements Serializable, Comparable<Post> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -89,5 +89,10 @@ public class Post implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(user, message, timeStamp);
+    }
+
+    @Override
+    public int compareTo(Post o) {
+        return timeStamp.compareTo(o.getTimeStamp());
     }
 }
