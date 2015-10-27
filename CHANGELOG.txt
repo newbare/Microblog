@@ -1,0 +1,8 @@
+v.1.0.1
+==========
+- Fixed posts sorting issue
+- Added DB connection pool
+
+v.1.0.0
+==========
+Initial version
