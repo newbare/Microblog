@@ -30,7 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests().antMatchers("/post/vote").authenticated()
                 .and().authorizeRequests().antMatchers("/post/unvote").authenticated()
                 .and().authorizeRequests().antMatchers("/user/follow").authenticated()
-                .and().authorizeRequests().antMatchers("/user/unfollow").authenticated().anyRequest().permitAll()
+                .and().authorizeRequests().antMatchers("/user/unfollow").authenticated()
+                .and().authorizeRequests().antMatchers("/user/userpic/upload").authenticated()
+                .and().authorizeRequests().antMatchers("/user/userpic/remove").authenticated()
+                .anyRequest().permitAll()
                 .and().authorizeRequests().antMatchers("/admin").hasRole("ADMIN");
 
     }

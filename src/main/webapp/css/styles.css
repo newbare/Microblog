@@ -7,3 +7,15 @@ body {
 .center {
     text-align: center;
 }
+
+.center form {
+    display:inline-block;
+}
+
+.margin-top {
+    margin-top: 10px;
+}
+
+.margin-bottom {
+    margin-bottom: 10px;
+}

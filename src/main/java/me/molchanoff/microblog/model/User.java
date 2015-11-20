@@ -26,7 +26,7 @@ public class User implements Serializable {
 
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "DISPLAYNAME", nullable = false)
+    @Column(name = "DISPLAY_NAME", nullable = false)
     private String displayname;
 
     @NotNull
@@ -41,6 +41,9 @@ public class User implements Serializable {
 
     @Column(name = "ENABLED", nullable = false)
     private boolean enabled;
+
+    @Column(name = "USER_PICTURE_PREFIX", nullable = false)
+    private String userPicturePrefix;
 
     @OneToMany(targetEntity = Post.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "user")
     private List<Post> postList = new ArrayList<>();
@@ -103,6 +106,14 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
+    public String getUserPicturePrefix() {
+        return userPicturePrefix;
+    }
+
+    public void setUserPicturePrefix(String userPicturePrefix) {
+        this.userPicturePrefix = userPicturePrefix;
+    }
+
     public List<Post> getPostList() {
         return postList;
     }
@@ -140,15 +151,16 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(enabled, user.enabled) &&
+        return enabled == user.enabled &&
                 Objects.equals(username, user.username) &&
                 Objects.equals(displayname, user.displayname) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password);
+                Objects.equals(password, user.password) &&
+                Objects.equals(userPicturePrefix, user.userPicturePrefix);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, displayname, email, password, enabled);
+        return Objects.hash(username, displayname, email, password, enabled, userPicturePrefix);
     }
 }

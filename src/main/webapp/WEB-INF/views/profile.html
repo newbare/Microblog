@@ -1,7 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <div th:replace="include :: head"></div>
 <body>
 <div th:replace="include :: navbar ('')"></div>
@@ -30,7 +30,7 @@
                 <div class="media" th:each="followed : ${profileUser.subscriptionList}">
                     <div class="media-left">
                         <a th:href="@{|/user/show/${followed.username}|}">
-                            <img class="media-object" th:src="@{/avatar/64x64.png}" alt="userpic" />
+                            <img class="media-object" th:src="@{|/userpics/${followed.userPicturePrefix}_small.png|}" alt="userpic" />
                         </a>
                     </div>
                     <div class="media-body">
@@ -48,7 +48,7 @@
                 <div class="media" th:each="follower : ${followersList}">
                     <div class="media-left">
                         <a th:href="@{|/user/show/${follower.username}|}">
-                            <img class="media-object" th:src="@{/avatar/64x64.png}" alt="userpic" />
+                            <img class="media-object" th:src="@{|/userpics/${follower.userPicturePrefix}_small.png|}" alt="userpic" />
                         </a>
                     </div>
                     <div class="media-body">

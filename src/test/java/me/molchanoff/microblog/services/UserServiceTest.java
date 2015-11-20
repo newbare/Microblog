@@ -50,6 +50,7 @@ public class UserServiceTest {
         expectedUser.setEmail("test1email");
         expectedUser.setPassword("test1password");
         expectedUser.setEnabled(true);
+        expectedUser.setUserPicturePrefix("default");
         User actualUser = userService.findUser("test1");
         assertEquals(expectedUser, actualUser);
     }

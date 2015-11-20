@@ -2,11 +2,12 @@ CREATE TABLE
     users
     (
         id BIGINT NOT NULL auto_increment,
-        displayname CHARACTER VARYING(20) NOT NULL,
+        display_name CHARACTER VARYING(20) NOT NULL,
         email CHARACTER VARYING(20) NOT NULL,
         enabled BOOLEAN NOT NULL,
         password CHARACTER VARYING(20) NOT NULL,
         username CHARACTER VARYING(20) NOT NULL,
+        user_picture_prefix CHARACTER VARYING(255) NOT NULL,
         PRIMARY KEY (id),
         CONSTRAINT uk_81nqioeq3njjrwqaltk2mcobj UNIQUE (email),
         CONSTRAINT uk_h6k33r31i2nvrri9lok4r163j UNIQUE (username)

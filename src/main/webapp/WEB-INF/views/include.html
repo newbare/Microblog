@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/bootstrap.file-input.js}" />
+    <script th:src="@{/js/scripts.js}" />
 </head>
 
 <body>
@@ -59,7 +61,14 @@
         <b th:text="${post.user.displayname}">Display Name</b>
         <div class="pull-right" th:text="${post.user.username}">Username</div>
     </div>
-    <div class="panel-body" th:text="${post.message}">Hello world!</div>
+    <div class="panel-body">
+        <div class="media">
+            <div class="media-left">
+                <img class="media-object" th:height="64" th:width="64" th:src="@{|/userpics/${post.user.userPicturePrefix}_small.png|}" />
+            </div>
+            <div class="media-body media-middle" th:text="${post.message}">Hello World</div>
+        </div>
+    </div>
     <div class="panel-footer clearfix" >
         <span th:text="${#dates.format(post.timeStamp, 'dd.MM.yyyy HH:mm:ss')}">01.01.2015 12:00:00</span>
         <div class="pull-right">
@@ -82,8 +91,20 @@
 
 <div th:fragment="profile" class="panel panel-default">
     <div class="panel-body">
-        <img class="center-block" th:src="@{/avatar/250x250.png}" />
         <div th:object="${profileUser}">
+            <img class="center-block margin-bottom" th:height="250" th:width="250"  th:src="@{|/userpics/${profileUser.userPicturePrefix}_large.png|}" />
+            <div th:if="${#authentication.name} == *{username}" class="profilePictureMenu">
+                <button type="button" onclick="$('#profilePictureForms').toggleClass('hidden');" class="btn btn-default btn-xs center-block"><span class="glyphicon glyphicon-camera"></span> Profile picture</button>
+                <div id="profilePictureForms" class="hidden">
+                    <form class="center margin-top" th:action="@{user/userpic/upload}" method="post" enctype="multipart/form-data">
+                        <input type="file" data-filename-placement="inside" name="profilePicture" accept="image/jpeg,image/png,image/gif" />
+                        <button type="submit" id="uploadButton" class="btn btn-primary" disabled="true">Upload</button>
+                    </form>
+                    <form class="center margin-top" th:action="@{user/userpic/remove}" method="post">
+                        <button type="submit" class="btn btn-danger btn-xs" th:disabled="*{userPicturePrefix} == 'default'"><span class="glyphicon glyphicon-trash"></span> Remove</button>
+                    </form>
+                </div>
+            </div>
             <h3 th:text="*{displayname}">Display Name</h3>
             <h4 th:text="*{username}">Username</h4>
             <h4 th:text="*{email}">user@domain.com</h4>

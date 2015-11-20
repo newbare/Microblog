@@ -1,10 +1,10 @@
-INSERT INTO users (username, displayname, email, password, enabled) values ('test1', 'test1name', 'test1email', 'test1password', true);
+INSERT INTO users (username, display_name, email, password, enabled, user_picture_prefix) values ('test1', 'test1name', 'test1email', 'test1password', true, 'default');
 INSERT INTO authorities (role, user_id) values ('ROLE_USER', (SELECT u.id from users u where u.username = 'test1'));
 
-INSERT INTO users (username, displayname, email, password, enabled) values ('test2', 'test2name', 'test2email', 'test2password', true);
+INSERT INTO users (username, display_name, email, password, enabled, user_picture_prefix) values ('test2', 'test2name', 'test2email', 'test2password', true, 'default');
 INSERT INTO authorities (role, user_id) values ('ROLE_USER', (SELECT u.id from users u where u.username = 'test2'));
 
-INSERT INTO users (username, displayname, email, password, enabled) values ('test3', 'test3name', 'test3email', 'test3password', true);
+INSERT INTO users (username, display_name, email, password, enabled, user_picture_prefix) values ('test3', 'test3name', 'test3email', 'test3password', true, 'default');
 INSERT INTO authorities (role, user_id) values ('ROLE_USER', (SELECT u.id from users u where u.username = 'test3'));
 
 INSERT INTO posts (message, timestamp, user_id) values ('first message from test1', '2015-01-01 00:00:00',(SELECT u.id from users u where u.username = 'test1'));

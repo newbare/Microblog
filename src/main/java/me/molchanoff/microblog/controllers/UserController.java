@@ -8,12 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Part;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +44,20 @@ public class UserController {
             return "signup";
         }
         userService.newUser(user, Role.ROLE_USER);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/userpic/upload", method = RequestMethod.POST)
+    public String uploadUserPicture(@RequestPart("profilePicture") Part userPicrure, Principal principal) throws IOException {
+        User user = userService.findUser(principal.getName());
+        userService.uploadPicture(userPicrure, user.getId());
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/userpic/remove", method = RequestMethod.POST)
+    public String removeUserPicture(Principal principal) {
+        User user = userService.findUser(principal.getName());
+        userService.removePicture(user.getId());
         return "redirect:/";
     }
 
